@@ -1,9 +1,8 @@
-import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { json, urlencoded } from 'express';
 import { setUp } from './main.service';
-import { throwError } from './infrastructure/common/configs/error.config';
 import { MainModule } from './main.module';
+import { throwError } from './infrastructure/shared/configs/error.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(MainModule, { cors: false });
