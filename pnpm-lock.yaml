@@ -43,6 +43,9 @@ devDependencies:
   '@nestjs/testing':
     specifier: ^10.0.2
     version: 10.3.8(@nestjs/common@10.3.8)(@nestjs/core@10.3.8)(@nestjs/platform-express@10.3.8)
+  '@nx-tools/nx-prisma':
+    specifier: ^5.3.1
+    version: 5.3.1(@nx/devkit@18.3.3)(prisma@5.13.0)(ts-node@10.9.1)(tslib@2.6.2)
   '@nx/eslint':
     specifier: 18.3.3
     version: 18.3.3(@swc-node/register@1.8.0)(@swc/core@1.3.107)(@types/node@18.16.20)(nx@18.3.3)
@@ -148,6 +151,16 @@ packages:
   /@aashutoshrathi/word-wrap@1.2.6:
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /@actions/exec@1.1.1:
+    resolution: {integrity: sha512-+sCcHHbVdk93a0XT19ECtO/gIXoxvdsgQLzb2fE2/5sIZmWQuluYyjPQtrtTHdU1YzTZ7bAPN4sITq2xi1679w==}
+    dependencies:
+      '@actions/io': 1.1.3
+    dev: true
+
+  /@actions/io@1.1.3:
+    resolution: {integrity: sha512-wi9JjgKLYS7U/z8PPbco+PvTb/nRWjeoFlJ1Qer83k/3C5PHQi28hiVdeE2kHXmIL99mQFawx8qt/JPjZilJ8Q==}
     dev: true
 
   /@adobe/css-tools@4.3.3:
@@ -2588,6 +2601,39 @@ packages:
     transitivePeerDependencies:
       - encoding
 
+  /@nx-tools/core@5.3.1(@nx/devkit@18.3.3)(tslib@2.6.2):
+    resolution: {integrity: sha512-eOLwHqzMh9lLOJev4/7hBQ1tszLU7okyX+1UY6cRyRHGiEmwaivI2u3TjGHLttRvZzCfw+KlktXXirhALO1i+g==}
+    peerDependencies:
+      '@nx/devkit': ^16.0.0 || ^17.0.0 || ^18.0.0
+      tslib: ^2.5.3
+    dependencies:
+      '@actions/exec': 1.1.1
+      '@nx/devkit': 18.3.3(nx@18.3.3)
+      chalk: 4.1.2
+      ci-info: 3.9.0
+      tslib: 2.6.2
+    dev: true
+
+  /@nx-tools/nx-prisma@5.3.1(@nx/devkit@18.3.3)(prisma@5.13.0)(ts-node@10.9.1)(tslib@2.6.2):
+    resolution: {integrity: sha512-E6JZi1hEiAozUuT724wL30gfvu84DZmTXeNx/taJJp9xZ5nZgZ1S/627/GNSKLQvklyjcGGbZdROCDCy0tkC4Q==}
+    peerDependencies:
+      '@nx/devkit': ^16.0.0 || ^17.0.0 || ^18.0.0
+      prisma: ^4.5.0 || ^5.0.0
+      ts-node: '*'
+      tslib: ^2.5.3
+      tsx: ^4.0.0
+    peerDependenciesMeta:
+      tsx:
+        optional: true
+    dependencies:
+      '@nx-tools/core': 5.3.1(@nx/devkit@18.3.3)(tslib@2.6.2)
+      '@nx/devkit': 18.3.3(nx@18.3.3)
+      prisma: 5.13.0
+      semver: 7.6.0
+      ts-node: 10.9.1(@swc/core@1.3.107)(@types/node@18.16.20)(typescript@5.4.5)
+      tslib: 2.6.2
+    dev: true
+
   /@nx/devkit@18.3.3(nx@18.3.3):
     resolution: {integrity: sha512-FtkZ6mA5//vEA5lcbT80m080ROVacHYV5F1peztTRA+IY2JZGJoqx425kn5ylDO8aCSAIAwcn2qIdhI8BnpG3Q==}
     peerDependencies:
@@ -3076,6 +3122,38 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@prisma/debug@5.13.0:
+    resolution: {integrity: sha512-699iqlEvzyCj9ETrXhs8o8wQc/eVW+FigSsHpiskSFydhjVuwTJEfj/nIYqTaWFYuxiWQRfm3r01meuW97SZaQ==}
+    dev: true
+
+  /@prisma/engines-version@5.13.0-23.b9a39a7ee606c28e3455d0fd60e78c3ba82b1a2b:
+    resolution: {integrity: sha512-AyUuhahTINGn8auyqYdmxsN+qn0mw3eg+uhkp8zwknXYIqoT3bChG4RqNY/nfDkPvzWAPBa9mrDyBeOnWSgO6A==}
+    dev: true
+
+  /@prisma/engines@5.13.0:
+    resolution: {integrity: sha512-hIFLm4H1boj6CBZx55P4xKby9jgDTeDG0Jj3iXtwaaHmlD5JmiDkZhh8+DYWkTGchu+rRF36AVROLnk0oaqhHw==}
+    requiresBuild: true
+    dependencies:
+      '@prisma/debug': 5.13.0
+      '@prisma/engines-version': 5.13.0-23.b9a39a7ee606c28e3455d0fd60e78c3ba82b1a2b
+      '@prisma/fetch-engine': 5.13.0
+      '@prisma/get-platform': 5.13.0
+    dev: true
+
+  /@prisma/fetch-engine@5.13.0:
+    resolution: {integrity: sha512-Yh4W+t6YKyqgcSEB3odBXt7QyVSm0OQlBSldQF2SNXtmOgMX8D7PF/fvH6E6qBCpjB/yeJLy/FfwfFijoHI6sA==}
+    dependencies:
+      '@prisma/debug': 5.13.0
+      '@prisma/engines-version': 5.13.0-23.b9a39a7ee606c28e3455d0fd60e78c3ba82b1a2b
+      '@prisma/get-platform': 5.13.0
+    dev: true
+
+  /@prisma/get-platform@5.13.0:
+    resolution: {integrity: sha512-B/WrQwYTzwr7qCLifQzYOmQhZcFmIFhR81xC45gweInSUn2hTEbfKUPd2keAog+y5WI5xLAFNJ3wkXplvSVkSw==}
+    dependencies:
+      '@prisma/debug': 5.13.0
+    dev: true
 
   /@rollup/rollup-android-arm-eabi@4.16.4:
     resolution: {integrity: sha512-GkhjAaQ8oUTOKE4g4gsZ0u8K/IHU1+2WQSgS1TwTcYvL+sjbaQjNHFXbOJ6kgqGHIO1DfUhI/Sphi9GkRT9K+Q==}
@@ -9541,6 +9619,15 @@ packages:
       '@jest/schemas': 29.6.3
       ansi-styles: 5.2.0
       react-is: 18.2.0
+    dev: true
+
+  /prisma@5.13.0:
+    resolution: {integrity: sha512-kGtcJaElNRAdAGsCNykFSZ7dBKpL14Cbs+VaQ8cECxQlRPDjBlMHNFYeYt0SKovAVy2Y65JXQwB3A5+zIQwnTg==}
+    engines: {node: '>=16.13'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@prisma/engines': 5.13.0
     dev: true
 
   /prismjs@1.29.0:

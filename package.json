@@ -2,7 +2,10 @@
   "name": "@org/source",
   "version": "0.1.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "dev:website": "nx dev website",
+    "dev:backend": "nx serve backend --configuration=development "
+  },
   "private": true,
   "devDependencies": {
     "@astrojs/check": "^0.5.2",
@@ -10,6 +13,7 @@
     "@astrojs/tailwind": "^5.1.0",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
+    "@nx-tools/nx-prisma": "^5.3.1",
     "@nx/eslint": "18.3.3",
     "@nx/eslint-plugin": "18.3.3",
     "@nx/jest": "18.3.3",
