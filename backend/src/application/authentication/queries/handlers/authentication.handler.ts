@@ -8,7 +8,7 @@ export class AuthenticationHandler implements IQueryHandler<AuthenticationImplem
 
   async execute({email, password}: AuthenticationImplement) {
     const user = await this.repository.findOne(email);
-    if (user && user.password === password) {
+    if (user && user.password === password.toString()) {
       const { password, ...result } = user;
       return result;
     }

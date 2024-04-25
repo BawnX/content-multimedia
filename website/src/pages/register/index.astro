@@ -1,0 +1,94 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import InputComponent from 'website/src/components/atoms/input';
+import ButtonComponent from 'website/src/components/atoms/button'
+import RadioGroupComponent, { type Radio } from 'website/src/components/atoms/radioGroup'
+
+const radio: Radio[] = [
+  {
+    label: "I'm a Creator",
+    id: 'CREATOR'
+  },
+  {
+    label: "I'm a Reader",
+    id: 'READER'
+  }
+]
+---
+
+<Layout title="Login">
+  <article class="grid grid-cols-1 pt-28 place-items-center">
+    <h1 class="text-7xl text-center my-2"><strong>Create Your Account</strong></h1>
+    <h2 class="text-5xl text-center my-1">Choose share the content media with everyone</h2>
+    <form class="items-center my-3 w-[350px]" id="formRegister">
+      <section class="mt-8 mb-4">
+        <InputComponent client:only="react" type="string" placeholder='Full Name' name="name" id='fullName'/>
+      </section>
+      <section class="mt-4 mb-4">
+        <InputComponent client:only="react" type="string" placeholder='Email' name="email" id='email'/>
+      </section>
+      <section class="mt-4 mb-4">
+        <InputComponent client:only="react" type="password" placeholder='Password' name="password" id='password'/>
+      </section>
+
+      <RadioGroupComponent client:only="react" name="userRole" radio={radio}/>
+
+      <p class="text-red-600"><strong id="errorRegister"></strong></p>
+      <p class="text-green-600"><strong id="successRegister"></strong></p>
+
+      <section class="mt-4 mb-8">
+        <ButtonComponent id='signin' client:load type="submit" mode='rectangle'>
+          <p>Sign in</p>
+        </ButtonComponent>
+      </section>
+    </form>
+    <p class="text-2xl mt-1"> Do you have an account? <strong><a href="/login" class="text-emerald-600">log in to your account and be part of the community</a></strong> </p>
+  </article>
+</Layout>
+
+<script>
+const form = document.querySelector("#formRegister") as HTMLFormElement;
+
+if(form){
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const error = document.getElementById("errorRegister") as HTMLParagraphElement;
+    error.textContent = '';
+
+    const email = form['email'].value;
+    const password = form['password'].value;
+    const name = form['fullName'].value;
+    const role = form['userRole'].value;
+
+    const res = await fetch("/api/register", {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+        password,
+        name,
+        role
+      }),
+      headers:{
+        "Content-Type": "application/json"
+      }
+    });
+
+    const data = await res.json();
+
+    if(res.status === 200){
+      const success = document.getElementById("successRegister") as HTMLParagraphElement;
+      success.textContent = data.message;
+
+      setTimeout(() => {
+        window.location.href = '/app';
+      }, 2000);
+
+      return
+    }
+
+    error.textContent = data.message;
+  })
+}
+
+
+</script>
