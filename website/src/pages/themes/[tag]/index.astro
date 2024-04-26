@@ -1,0 +1,66 @@
+---
+import Layout from "website/src/layouts/Layout.astro";
+import Navbar from "website/src/components/molecules/navbar.astro";
+
+
+---
+
+<Layout title="Application">
+  <Navbar />
+
+  <article class="w-[75%] mx-auto">
+    <div class="h-screen grid place-items-center">
+      <div class="w-6/12 mx-auto rounded border">
+        <div class="bg-white p-10 shadow-sm">
+          <h3 class="text-lg font-medium text-gray-800">Several Windows stacked on each other</h3>
+          <p class="text-sm font-light text-gray-600 my-3">
+          The accordion is a graphical control element comprising a vertically stacked list of items such as labels or thumbnails
+          </p>
+
+        <div class="h-1 w-full mx-auto border-b my-5"></div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .accordion-content {
+  transition: max-height 0.3s ease-out, padding 0.3s ease;
+  }
+</style>
+
+<script>
+  const accordionHeader = document.querySelectorAll(".accordion-header");
+  accordionHeader.forEach((header) => {
+  header.addEventListener("click", function () {
+    if(!header.parentElement){
+      return
+    }
+    const accordionContent = header.parentElement.querySelector(".accordion-content");
+
+    if(!accordionContent){
+      return
+    }
+    let accordionMaxHeight = accordionContent.style.maxHeight;
+
+    if (accordionMaxHeight == "0px" || accordionMaxHeight.length == 0) {
+      accordionContent.style.maxHeight = `${accordionContent.scrollHeight + 32}px`;
+
+      header.querySelector(".fas")?.classList.remove("fa-plus");
+      header.querySelector(".fas")?.classList.add("fa-minus");
+      header.parentElement.classList.add("bg-indigo-50");
+
+      return
+    }
+
+    accordionContent.style.maxHeight = `0px`;
+    header.querySelector(".fas")?.classList.add("fa-plus");
+    header.querySelector(".fas")?.classList.remove("fa-minus");
+    header.parentElement.classList.remove("bg-indigo-50");
+  })
+});
+</script>

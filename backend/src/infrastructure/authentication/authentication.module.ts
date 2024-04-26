@@ -12,11 +12,19 @@ import { JwtAuthGuard } from "backend/src/application/authentication/guard/jwtAu
 import { ReaderAuthGuard } from "backend/src/application/authentication/guard/readerAuth.guard";
 import { CreatorAuthGuard } from "backend/src/application/authentication/guard/creatorAuth.guard";
 import { AdminAuthGuard } from "backend/src/application/authentication/guard/adminAuth.guard";
+import { AdminOrCreatorAuthGuard } from "backend/src/application/authentication/guard/adminOrCreator.guard";
 
 const queries = [AuthenticationHandler]
 const strategies = [LocalStrategy, JwtStrategy]
 const controllers = [AuthenticationController]
-const guards = [LocalAuthGuard, JwtAuthGuard, ReaderAuthGuard, CreatorAuthGuard, AdminAuthGuard]
+const guards = [
+  LocalAuthGuard,
+  JwtAuthGuard,
+  ReaderAuthGuard,
+  CreatorAuthGuard,
+  AdminAuthGuard,
+  AdminOrCreatorAuthGuard
+]
 const commands = [LoginHandler]
 
 @Global()

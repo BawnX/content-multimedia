@@ -1,0 +1,36 @@
+---
+import Layout from "website/src/layouts/Layout.astro";
+import Navbar from "website/src/components/molecules/navbar.astro";
+import SearchComponent from "website/src/components/molecules/search"
+import type { Select } from "../components/atoms/select";
+import CardThemeComponent from "../components/molecules/cardTheme";
+
+const themePromise = fetch("http://localhost:4321/api/theme", {method: "GET"})
+const cardThemePromise = fetch("http://localhost:4321/api/themeCount", {method: "GET"})
+const [themeRes, cardThemeRes] = await Promise.all([themePromise, cardThemePromise])
+
+const themeArr: Array<any> = await themeRes.json()
+const cardTheme: Array<any> = await cardThemeRes.json()
+
+  const themes: Select[] = themeArr.map(theme => {
+  return {
+    value: theme.id,
+    option: theme.name,
+    isDefault: false,
+  }
+})
+---
+
+<Layout title="Application">
+  <Navbar />
+
+  <article class="w-[75%] mx-auto">
+    <section class="grid grid-cols-3  pt-20">
+      <SearchComponent client:only="react" categories={themes}/>
+    </section>
+
+    <section class="grid grid-cols-3 pt-10 gap-4">
+      <CardThemeComponent cardTheme={cardTheme}/>
+    </section>
+  </article>
+</Layout>

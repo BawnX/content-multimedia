@@ -18,8 +18,8 @@ const radio: Radio[] = [
 
 <Layout title="Login">
   <article class="grid grid-cols-1 pt-28 place-items-center">
-    <h1 class="text-7xl text-center my-2"><strong>Create Your Account</strong></h1>
-    <h2 class="text-5xl text-center my-1">Choose share the content media with everyone</h2>
+    <h1 class="text-7xl text-center my-2 bg-skin-accent"><strong>Create Your Account</strong></h1>
+    <h2 class="text-5xl text-center my-1 bg-skin-accent">Choose share the content media with everyone</h2>
     <form class="items-center my-3 w-[350px]" id="formRegister">
       <section class="mt-8 mb-4">
         <InputComponent client:only="react" type="string" placeholder='Full Name' name="name" id='fullName'/>
@@ -42,7 +42,7 @@ const radio: Radio[] = [
         </ButtonComponent>
       </section>
     </form>
-    <p class="text-2xl mt-1"> Do you have an account? <strong><a href="/login" class="text-emerald-600">log in to your account and be part of the community</a></strong> </p>
+    <p class="text-2xl mt-1 bg-skin-accent"> Do you have an account? <strong><a href="/login" class="text-emerald-600">log in to your account and be part of the community</a></strong> </p>
   </article>
 </Layout>
 
@@ -75,12 +75,12 @@ if(form){
 
     const data = await res.json();
 
-    if(res.status === 200){
+    if(res.status === 201){
       const success = document.getElementById("successRegister") as HTMLParagraphElement;
       success.textContent = data.message;
 
       setTimeout(() => {
-        window.location.href = '/app';
+        window.location.href = '/';
       }, 2000);
 
       return

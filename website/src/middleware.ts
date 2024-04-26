@@ -14,7 +14,8 @@ const ValidateJWT = async (jwt: string) => {
 const publicPaths = [
   "login",
   "register",
-  "ico"
+  "ico",
+  "/"
 ]
 
 const middleware: MiddlewareHandler = async ({ redirect, request, cookies, locals }: APIContext, next: MiddlewareNext) => {
@@ -40,7 +41,7 @@ const middleware: MiddlewareHandler = async ({ redirect, request, cookies, local
     }
 
     const validateRes = await ValidateJWT(auth.value)
-    console.log(validateRes);
+
     if (validateRes.status !== 200) {
         return redirect("/login")
     }

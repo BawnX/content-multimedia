@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro"
+import { newResponse, serverError, url } from "website/src/utils/api"
 
 export const loginFetch = async (email: string, password: string) => await fetch('http://localhost:4321/api/login', {
   method: "POST",
@@ -12,7 +13,9 @@ export const loginFetch = async (email: string, password: string) => await fetch
 export const POST: APIRoute = async (ctx) => {
   try{
     const body = await ctx.request.json()
-    const res = await fetch('http://localhost:4000/authentication/login', {
+    const loginUrl = url+'/authentication/login'
+
+    const res = await fetch(loginUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -22,12 +25,7 @@ export const POST: APIRoute = async (ctx) => {
     })
 
     if(res.status!== 201){
-      return new Response(JSON.stringify({
-        message: "Incorrect credentials",
-      }),
-      {
-        status: 401,
-      })
+      return newResponse({message:"Incorrect credentials"}, 401)
     }
 
     const data = await res.json()
@@ -37,22 +35,15 @@ export const POST: APIRoute = async (ctx) => {
       path: "/",
       maxAge: 60 * 60 * 12,
     });
-
-    return new Response(
-      JSON.stringify({
-        message: "You're logged in!",
-      }),
-      {
-        status: 200,
-      }
-    );
+    ctx.cookies.set("user", JSON.stringify({ id: data.id, role:data.role }), {
+      secure: true,
+      path: "/",
+      maxAge: 60 * 60 * 12,
+    });
+    return newResponse({message: "You're logged in!"}, 201)
   }
   catch (err){
-    return new Response(JSON.stringify({
-      message: "Ooops someting wrong",
-    }),
-    {
-      status: 500,
-    })
+    console.log(err)
+    return serverError()
   }
 }

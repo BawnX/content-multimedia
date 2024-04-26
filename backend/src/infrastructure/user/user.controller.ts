@@ -15,5 +15,4 @@ export class UserController {
   async create(@Body("user") user: User): Promise<User> {
     return this.commandBus.execute(new CreateUserImplement(user));
   }
-
 }

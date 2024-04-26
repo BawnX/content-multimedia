@@ -12,7 +12,8 @@ export class AuthenticationController {
   @Post('login')
   async login(@Request() req) {
     const {user: {email, id, role}} = req;
-    return this.commandBus.execute(new LoginImplement(email, id, role));
+    const jwt = await this.commandBus.execute(new LoginImplement(email, id, role))
+    return { id, role, ...jwt }
   }
 
   @UseGuards(JwtAuthGuard)
