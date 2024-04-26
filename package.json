@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev:website": "nx dev website",
-    "dev:backend": "env-cmd -f .env.local nx serve backend"
+    "dev:backend": "npm run orm:generate && env-cmd -f .env.local nx serve backend",
+    "orm:generate": "nx prisma-generate backend --name init"
   },
   "private": true,
   "devDependencies": {
