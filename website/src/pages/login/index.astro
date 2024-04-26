@@ -1,0 +1,73 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import InputComponent from 'website/src/components/atoms/input';
+import ButtonComponent from 'website/src/components/atoms/button'
+---
+
+<Layout title="Login">
+  <article class="grid grid-cols-1 pt-28 place-items-center">
+    <h1 class="text-7xl text-center my-2 bg-skin-accent"><strong> Login to Your Account</strong></h1>
+    <h2 class="text-5xl text-center my-1 bg-skin-accent">Choose share the content media with everyone</h2>
+    <form class="items-center my-3 w-[350px]" id="formLogin">
+      <section class="mt-8 mb-4">
+        <InputComponent client:only="react" type="string" placeholder='Email' name="email" id='email'/>
+      </section>
+      <section class="mt-4 mb-4">
+        <InputComponent client:only="react" type="password" placeholder='Password' name="password" id='password'/>
+      </section>
+
+      <p class="text-red-600"><strong id="errorLogin"></strong></p>
+      <p class="text-green-600"><strong id="successLogin"></strong></p>
+
+      <section class="mt-4 mb-8">
+        <ButtonComponent id='signin' client:load type="submit" mode='rectangle'>
+          <p>Sign in</p>
+        </ButtonComponent>
+      </section>
+    </form>
+    <p class="text-2xl mt-1 bg-skin-accent"> Don't have an account? <strong><a href="/register" class="text-emerald-600">Create one and be part of the community</a></strong> </p>
+  </article>
+</Layout>
+
+<script>
+const form = document.querySelector("#formLogin") as HTMLFormElement;
+
+if(form){
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const error = document.getElementById("errorLogin") as HTMLParagraphElement;
+    error.textContent = '';
+
+    const email = form['email'].value;
+    const password = form['password'].value;
+
+    const res = await fetch("/api/login", {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+        password
+      }),
+      headers:{
+        "Content-Type": "application/json"
+      }
+    });
+
+    const data = await res.json();
+
+    if(res.status === 201){
+      const success = document.getElementById("successLogin") as HTMLParagraphElement;
+      success.textContent = data.message;
+
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 2000);
+
+      return
+    }
+
+    error.textContent = data.message;
+  })
+}
+
+
+</script>

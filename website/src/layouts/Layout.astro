@@ -1,20 +1,22 @@
 ---
+import '@fontsource-variable/outfit';
 interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
+const { theme } = Astro.locals;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme={theme}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<title>{title} - Content Multimedia</title>
 	</head>
 
 	<body>
@@ -23,33 +25,93 @@ const { title } = Astro.props;
 </html>
 
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
+  :root{
+    --background-base: #212a2e;
+    --background-accent: #f8f9fa;
+    --background-invalid: #adb5bd;
+    --text-color: #252422;
+    --text-accent: #d1d1d1;
+
+    html[data-full],
+    html[data-full] body {
+      overscroll-behavior-y: none;
+    }
+
+    body[data-no-scroll] {
+      overflow-y: hidden;
+      height: 100vh;
+    }
+
+    html[data-no-scroll], html[data-no-scroll] body {
+      overflow: hidden;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: theme("backgroundColor.skin.accent");
+      border: 5px solid transparent;
+      border-left: 0;
+      background-clip: content-box;
+    }
+
+    ::-webkit-scrollbar {
+      width: 13px;
+    }
+  }
+
+  html[data-theme='dark'] {
+    --background-base: #f8f9fa;
+    --background-accent: #212a2e;
+    --text-color: #F7F8F8;
+  }
 
 	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
+		font-family: "Space Grotesk Variable", sans-serif;
+		@apply absolute top-0 z-[-2] h-screen w-screen bg-[theme(backgroundColor.skin.accent)];
+		background-image: radial-gradient(
+      theme(backgroundColor.skin.base) 1px,
+		  transparent 0
+		);
+		background-size: 20px 20px;
+		z-index: 1;
 	}
 
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+  body{
+    font-family: 'Outfit Variable', sans-serif;
+  }
+
+  .input{
+    @apply bg-gray-200 text-skin-base placeholder-slate-600 sm:text-sm rounded-sm block w-full p-2.5 dark:bg-skin-accent dark:border-green-100 dark:placeholder-green-100
+  }
+
+  .input--valid{
+    @apply valid:border-green-500
+  }
+
+  .input--invalid{
+    @apply invalid:border-red-400
+  }
+
+  .input--lavel{
+    @apply block mb-2 text-sm font-medium
+  }
+
+  .button {
+    @apply bg-gradient-to-r from-cyan-500 to-emerald-500
+  }
+
+  .button--resize {
+    @apply hover:scale-105
+  }
+
+  .button--rounded {
+    @apply rounded-full p-1
+  }
+
+  .button--rectangle {
+    @apply w-full font-medium rounded-lg text-sm py-2.5 text-center
+  }
 </style>
