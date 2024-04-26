@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/BawnX/content-multimedia/compare/v0.2.0...v0.2.1) (2024-04-26)
+
+
+### Features
+
+* 🎸 added a scriptt ([15c7c87](https://github.com/BawnX/content-multimedia/commit/15c7c8731252549354585acb75f4b580c5cac73e))
+
 ## [0.2.0](https://github.com/BawnX/content-multimedia/compare/v0.1.1...v0.2.0) (2024-04-26)
 
 
